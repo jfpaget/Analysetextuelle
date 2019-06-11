@@ -1,0 +1,52 @@
+import os
+
+def lecture_fichier() :
+    fichier_existe = False
+    # Tant que le fichier demandé n'existe pas
+    while not fichier_existe:
+        # Demande du nom du fichier à analyser
+        nom_fichier = input("Donner le nom du fichier à analyser : ")
+        # Vérification de l'existence du fichier
+        fichier_existe = os.path.isfile(nom_fichier)
+        if not fichier_existe :
+            print ("Ce fichier n'existe pas, veuillez donner un autre nom de fichier:")
+    #Ouverture et lecture du fichier
+    fichier = open(nom_fichier, "r")
+    texte_lu = fichier.read()
+    # Fermeture du fichier
+    fichier.close()
+
+    # Les retours à la ligne sont remplacés par des espaces
+    texte = ""
+    nb_lignes = 0
+    for car in texte_lu:
+        if car != "\n":
+            texte += car
+        else:
+            nb_lignes += 1
+            texte += " "
+    # Suppression du dernier caractère (si c'est un espace !!)
+    while texte[len(texte)-1] == " ":
+        texte = texte[:len(texte)-1]
+    return texte
+
+def comptage_mots(chaine):
+    print ("0")
+    ponctuation = [",",";",".","!","?","{","}","[","]","(",")"]
+    chaine0 = chaine[0]
+    print (chaine)
+    for car in chaine[1:15]:
+        print (car, chaine0, chaine0[len(chaine0)-1])
+        if (car != " ") or (chaine0[len(chaine0)-1] != car):
+            print ("1")
+            if car not in ponctuation :
+                print ("2")
+                chaine0 += car
+    liste_mots = chaine0.split(" ")
+    return liste_mots
+
+texte = lecture_fichier()
+mots = comptage_mots(texte)
+nombre = len(mots)
+print (texte)
+print (nombre)
